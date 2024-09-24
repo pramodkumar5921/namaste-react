@@ -1,3 +1,39 @@
-/* .head{
-    color: red;
-} */
+.header{
+    display: flex;
+    justify-content: space-between; /*it is used to seperate the logo */
+    border: 1px solid black;
+}
+.logo{
+    width : 200px;  /*it is used to reduce the width of logo*/
+}
+.nav-items > ul{
+    font-size: 24px;
+    display: flex;
+    list-style: none;  /* it is used for to remove the dot in the list*/
+}
+.nav-items>ul>li{
+    padding: 10px;
+    margin: 10px;
+}
+
+.res-card{
+    padding: 5px;
+    width:200px;
+    height:300px;
+}
+.res-card :hover {
+    cursor: pointer;
+    border: 1px solid black;
+}
+.search{
+    padding: 10px;
+}
+.res-logo{
+    width: 100%;
+    height: 200px;
+}
+.res-container{
+    margin: 5px;
+    display: flex;
+    flex-wrap: wrap;
+}
