@@ -36,20 +36,21 @@ const Header = ()=>{
 };
 const RestaurantCard = (props)=>{
   const {resData} = props;
+  const {image,name,cuisines,costForTwo,deliveryTime} = resData?.restaurant.data;
   return (
     <div className="res-card" style={{backgroundColor:"#f0f0f0"}}>
       <img 
       className="res-logo"
       alt="res-logo" 
-      src={resData.restaurant.data.image}></img>
-      <h3>{resData.restaurant.data.name}</h3>
-      <h4>{resData.restaurant.data.cuisines.join(" , ")}</h4>
-      <h4>₹{resData.restaurant.data.costForTwo / 100} FOR TWO</h4>
-      <h4>{resData.restaurant.data.deliveryTime} mintues</h4>
+      src={image}></img>
+      <h3>{name}</h3>
+      <h4>{cuisines.join(" , ")}</h4>
+      <h4>₹{costForTwo / 100} FOR TWO</h4>
+      <h4>{deliveryTime} mintues</h4>
     </div>
   );
 };
-const resObj = {
+const resList = [{
   // Missing key, I am adding `restaurant` as a key for this inner object
   restaurant: {
     type: "restaurant",
@@ -171,16 +172,16 @@ const resObj = {
     },
     subtype: "basic"
   }
-};
+}];
 
 const Body = ()=>{
   return (
     <div className="body">
      <div className="search">search</div>
      <div className="res-container">
-      <RestaurantCard
-        resData = {resObj}
-      />
+      {resList.map((restaurant) => (
+        <RestaurantCard key = {restaurant.restaurant.data.id} resData = {restaurant}/>
+      ))}
      </div>
     </div>
   );

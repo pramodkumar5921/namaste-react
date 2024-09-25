@@ -15,11 +15,10 @@
     padding: 10px;
     margin: 10px;
 }
-
+/* remove height  */
 .res-card{
     padding: 5px;
-    width:200px;
-    height:350px;
+    width:200px;  
 }
 .res-card :hover {
     cursor: pointer;
