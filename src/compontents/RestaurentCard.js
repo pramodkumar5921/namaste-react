@@ -1,6 +1,9 @@
 const RestaurantCard = (props)=>{
+
+  console.log("props..........",props)
     const {resData} = props;
-    const {image,name,cuisines,costForTwo,deliveryTime} = resData?.restaurant.data;
+    
+    const {image,name,cuisines,costForTwo,deliveryTime} = resData?.restaurant?.data;
     return (
       <div className="res-card" style={{backgroundColor:"#f0f0f0"}}>
         <img 
