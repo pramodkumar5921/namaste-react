@@ -36,3 +36,7 @@
   - Second Ways
   - export const compontent
   - import {component} fron "path"
+- # React Hooks
+- (Normal JS utility functions)
+- useState() - superPower state varibles in React
+- useEffect()
