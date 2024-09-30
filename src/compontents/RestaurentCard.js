@@ -2,8 +2,9 @@ import { Image_URL } from "../utils/constants";
 const RestaurantCard = (props)=>{
 
     const {resData} = props;
-    
-    const {cloudinaryImageId,name,cuisines,costForTwo,avgRating} = resData.card.card.info;
+    // if(resData.card.card.info.name){
+      const {cloudinaryImageId,name,cuisines,costForTwo,avgRating} = resData.card.card.info;
+    // }
     return (
       <div className="res-card" style={{backgroundColor:"#f0f0f0"}}>
         <img 

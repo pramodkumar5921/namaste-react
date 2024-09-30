@@ -1,74 +1,86 @@
 import RestaurantCard from "./RestaurentCard";
 import { Api_URL } from "../utils/constants";
 import { useEffect, useState } from "react";
-
+import Shimmer from "./Shimmer";
 
 const Body = () => {
   const [Listrestaurent, setListrestaurent] = useState([]);
+  const [filterRestaurent,setfilterRestaurent]=useState([]);
+  const [searchtext , setsearchtext] = useState("");
 
+  // console.log("Body Rendered");
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
-    const data = await fetch(
-     Api_URL
-    );
+    const data = await fetch(Api_URL);
     const json = await data.json();
     setListrestaurent(json?.data?.cards);
   };
 
-  // const fetchData = async () => {
-  //   const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.6624624&lng=77.0722759&collection=83637&tags=layout_CCS_Burger&sortBy=&filters=&type=rcv2&offset=0&page_type=null");
-  //   const json = await data.json();
-
-  //   console.log(json.data.cards[3].card.card.info.name);
-  //   console.log(json.data.cards[4].card.card.info.name);
-  //   console.log(json.data.cards[5].card.card.info.name);
-  //   console.log(json.data.cards[6].card.card.info.name);
-  //   console.log(json.data.cards[7].card.card.info.name);
-  //   console.log(json.data.cards[8].card.card.info.name);
-  //   console.log(json.data.cards[9].card.card.info.name);
-  // };
-
-  return (
+  return Listrestaurent.length == 0 ? (
+    <Shimmer />
+  ) : (
     <div className="body">
       <div className="filter">
+        <div className="search">
+          <input type="index" className="search-box" value={searchtext}  onChange={(e)=>{
+              setsearchtext(e.target.value);
+          }}/>
+          <button onClick={()=>{
+            const filterList=[];
+            for(let i=3;i<Listrestaurent.length;i++){
+               const Restaurantitem = Listrestaurent[i];
+               if(Restaurantitem?.card?.card?.info?.name.toLowerCase().includes(searchtext.toLowerCase())){
+                filterList.push(Restaurantitem);
+               }
+            }
+            setfilterRestaurent(filterList);
+            // console.log("Listrestaurent.....",Listrestaurent)
+          }}>Search</button>
+        </div>
         <button
           className="filter-btn"
           onClick={() => {
             const filterList = [];
-            // const filterList = Listrestaurent.filter(
-            //   (res) => res.restaurant.data.rating > 4
-            // );
-            // setListrestaurent(filterList);
-            for(let i=3;i<Listrestaurent.length;i++){
+            // Filter restaurants with avgRating > 4
+            for (let i = 1; i < Listrestaurent.length; i++) {
               const restaurantItem = Listrestaurent[i];
-             if(restaurantItem?.card?.card?.info?.avgRating > 4 ){
+              if (
+                restaurantItem?.card?.card?.info?.avgRating &&
+                restaurantItem?.card?.card?.info?.avgRating > 4
+              ) {
                 filterList.push(restaurantItem);
-             }
+              }
             }
-            setListrestaurent(filterList);
+            setfilterRestaurent(filterList);
           }}
         >
           Top Rated Restaurant
         </button>
       </div>
-      <div className="res-container">
-        {/* Convert the map function to for loop */}
-        {(() => {
-          const restaurantCards = [];
-          for (let i = 3; i < Listrestaurent.length; i++) {
-            const restaurantItem = Listrestaurent[i];
-            restaurantCards.push(
-              <RestaurantCard
-                key={restaurantItem?.card?.card?.info?.id}
-                resData={restaurantItem}
-              />
-            );
-          }
-          return restaurantCards;
-        })()}
+      <div className="res-container">{
+        (filterRestaurent.length)?(
+          (
+        filterRestaurent.map((restaurantItem) => (
+          <RestaurantCard
+            key={restaurantItem?.card?.card?.info?.id}
+            resData={restaurantItem}
+          />
+        ))
+      )
+        ):(
+          (
+          Listrestaurent.slice(3).map((restaurantItem) => (
+          <RestaurantCard
+            key={restaurantItem?.card?.card?.info?.id}
+            resData={restaurantItem}
+          />
+        ))
+      )
+        )
+    }    
       </div>
     </div>
   );
