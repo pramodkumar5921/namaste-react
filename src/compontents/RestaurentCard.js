@@ -1,19 +1,20 @@
+import { Image_URL } from "../utils/constants";
 const RestaurantCard = (props)=>{
 
-  console.log("props..........",props)
     const {resData} = props;
-    
-    const {image,name,cuisines,costForTwo,deliveryTime} = resData?.restaurant?.data;
+    // if(resData.card.card.info.name){
+      const {cloudinaryImageId,name,cuisines,costForTwo,avgRating} = resData.card.card.info;
+    // }
     return (
       <div className="res-card" style={{backgroundColor:"#f0f0f0"}}>
         <img 
         className="res-logo"
         alt="res-logo" 
-        src={image}></img>
+        src={Image_URL+cloudinaryImageId}></img>
         <h3>{name}</h3>
         <h4>{cuisines.join(" , ")}</h4>
-        <h4>₹{costForTwo / 100} FOR TWO</h4>
-        <h4>{deliveryTime} mintues</h4>
+        <h4>{costForTwo}</h4>
+        <h4>{avgRating}</h4>
       </div>
     );
   };
