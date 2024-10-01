@@ -2,6 +2,7 @@ import RestaurantCard from "./RestaurentCard";
 import { Api_URL } from "../utils/constants";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 
 const Body = () => {
   const [Listrestaurent, setListrestaurent] = useState([]);

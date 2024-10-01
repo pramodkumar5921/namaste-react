@@ -36,7 +36,12 @@
   - Second Ways
   - export const compontent
   - import {component} fron "path"
+  - 
 - # React Hooks
 - (Normal JS utility functions)
 - useState() - superPower state varibles in React
 - useEffect()
+
+# 2 Types of Routing in Web pages
+  - Client Side Routing
+  - Server Side Routing
