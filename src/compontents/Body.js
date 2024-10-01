@@ -65,19 +65,23 @@ const Body = () => {
         (filterRestaurent.length)?(
           (
         filterRestaurent.map((restaurantItem) => (
+          <Link to = {"/restaurents/"+ restaurantItem?.card?.card?.info?.id}>
           <RestaurantCard
-            key={restaurantItem?.card?.card?.info?.id}
             resData={restaurantItem}
           />
+          </Link>
+          
         ))
       )
         ):(
           (
           Listrestaurent.slice(3).map((restaurantItem) => (
+            <Link to = {"/restaurents/"+ restaurantItem?.card?.card?.info?.id}>
           <RestaurantCard
             key={restaurantItem?.card?.card?.info?.id}
             resData={restaurantItem}
           />
+             </Link>
         ))
       )
         )

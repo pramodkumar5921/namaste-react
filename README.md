@@ -45,3 +45,7 @@
 # 2 Types of Routing in Web pages
   - Client Side Routing
   - Server Side Routing
+
+# add the Features ogf Restaurent Card
+- RestaurentCard
+-

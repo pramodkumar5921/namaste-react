@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
 import { Menu_URL } from "../utils/constants";
+import RestaurantCard from './RestaurentCard';
 
 const RestaurentMenu = () => {
     const [resInfo, setResInfo] = useState(null);
