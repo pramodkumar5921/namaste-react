@@ -33,4 +33,4 @@ class UserClass extends React.Component {
   }
 }
 
-export default UserClass
+export default UserClass;
