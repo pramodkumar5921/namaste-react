@@ -3,13 +3,15 @@ import { Api_URL } from "../utils/constants";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
+
 
 const Body = () => {
   const [Listrestaurent, setListrestaurent] = useState([]);
   const [filterRestaurent,setfilterRestaurent]=useState([]);
   const [searchtext , setsearchtext] = useState("");
 
-  // console.log("Body Rendered");
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -20,16 +22,29 @@ const Body = () => {
     setListrestaurent(json?.data?.cards);
   };
 
+
+
+  const onlineStatus = useOnlineStatus();
+
+  if (onlineStatus === false)
+    return (
+      <h1>
+        Looks like you're offline!! Please check your internet connection;
+      </h1>
+    );
+ 
+
   return Listrestaurent.length == 0 ? (
     <Shimmer />
   ) : (
     <div className="body">
-      <div className="filter">
-        <div className="search">
-          <input type="index" className="search-box" value={searchtext}  onChange={(e)=>{
+      <div className="filter flex">
+        <div className="search m-4 p-4">
+          <input type="index" className="border border-solid border-black" value={searchtext}  onChange={(e)=>{
               setsearchtext(e.target.value);
           }}/>
-          <button onClick={()=>{
+          <button className="px-4 py-1 bg-green-100 m-4 rounded-lg"
+           onClick={()=>{
             const filterList=[];
             for(let i=3;i<Listrestaurent.length;i++){
                const Restaurantitem = Listrestaurent[i];
@@ -38,11 +53,13 @@ const Body = () => {
                }
             }
             setfilterRestaurent(filterList);
-            // console.log("Listrestaurent.....",Listrestaurent)
-          }}>Search</button>
+          }}
+          >Search</button>
         </div>
+
+        <div className="m-4 p-4 flex items-center"> 
         <button
-          className="filter-btn"
+          className="px-4 py-2 bg-gray-100 m-4 rounded-lg"
           onClick={() => {
             const filterList = [];
             // Filter restaurants with avgRating > 4
@@ -60,8 +77,9 @@ const Body = () => {
         >
           Top Rated Restaurant
         </button>
+        </div>
       </div>
-      <div className="res-container">{
+      <div className="flex flex-wrap justify-evenly">{
         (filterRestaurent.length)?(
           (
         filterRestaurent.map((restaurantItem) => (
